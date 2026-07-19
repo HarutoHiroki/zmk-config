@@ -12,21 +12,16 @@
 
 / {
     behaviors {
-        rgb_encoder: rgb_encoder {
-            compatible = "zmk,behavior-sensor-rotate";
-            #sensor-binding-cells = <0>;
-            bindings = <&rgb_ug RGB_BRI>, <&rgb_ug RGB_BRD>;
-        };
         scrolling: scrolling {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
-            bindings = <&msc SCRL_UP>, <&msc SCRL_DN>;
-        }
+            bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>;
+        };
         scrolling_lr: scrolling_lr {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&msc SCRL_LEFT>, <&msc SCRL_RIGHT>;
-        }
+        };
     };
 
     keymap {
@@ -83,7 +78,7 @@
 &trans     &trans       &trans       &trans       &trans       &trans                       &trans    &trans       &trans       &kp LBKT  &kp RBKT    &trans
 &kp LSHFT  &trans       &trans       &trans       &trans       &trans                       &trans    &kp LEFT     &kp UP       &kp DOWN  &kp RIGHT   &kp PSCRN
 &kp LCTRL  &trans       &trans       &trans       &trans       &trans    &trans   &trans    &trans    &trans       &kp FSLH     &kp BSLH  &trans      &kp RSHFT
-                        &kp LALT     &trans       &trans       &trans    &trans   &trans    &trans    &trans       &kp RALT
+                                     &kp LALT     &trans       &trans    &trans   &trans    &trans    &trans       &kp RALT
             >;
 
             sensor-bindings = <&scrolling_lr>;
