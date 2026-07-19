@@ -11,10 +11,29 @@
 #include <dt-bindings/zmk/pointing.h>
 
 / {
+    behaviors {
+        rgb_encoder: rgb_encoder {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            bindings = <&rgb_ug RGB_BRI>, <&rgb_ug RGB_BRD>;
+        };
+        scrolling: scrolling {
+            compatible = "zmk,keymap";
+            #sensor-binding-cells = <0>;
+            bindings = <&msc SCRL_UP>, <&msc SCRL_DN>
+        }
+        scrolling_lr: scrolling_lr {
+            compatible = "zmk,keymap";
+            #sensor-binding-cells = <0>;
+            bindings = <&msc SCRL_LEFT>, <&msc SCRL_RIGHT>
+        }
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
         default_layer {
+        display-name = "Base";
 // --------------------------------------------------------------------------------------------------------------------
 // |  ESC  |   1   |   2   |   3   |   4   |   5   |                  |   6   |   7   |   8   |   9   |   0   | BSPC  |
 // |  TAB  |   Q   |   W   |   E   |   R   |   T   |                  |   Y   |   U   |   I   |   O   |   P   | ENTER |
@@ -29,21 +48,22 @@
                         &kp LALT &kp LGUI &mo 1  &trans     &kp SPACE &mo 2  &kp RGUI &kp RALT
             >;
 
-            sensor-bindings = <&msc SCRL_UP SCRL_DOWN>;
+            sensor-bindings = <&scrolling>;
         };
 
         lower_layer {
+        display-name = "Lower";
 // --------------------------------------------------------------------------------------------------------------------
 // |   `   | BTCLR |  BT1  |  BT2  |  BT3  |  BT4  |                  |       |       |       |       |       | DELETE|
 // |  F1   |  F2   |  F3   |  F4   |  F5   |  F6   |                  |       |       |       |       |       |       |
 // |  F7   |  F8   |  F9   |  F10  |  F11  |  F12  |                  |       |       |       |       |       |       |
-// |  CTRL | SHIFT |       |       |       |       |       |  |       |       |       |       |       |       | SHIFT |
+// |  CTRL | SHIFT |  Caps |       |       |       |       |  |       |       |       |       |       |       | SHIFT |
 //                         |  LALT |       |  ~X~  |       |  |       |  ~X~  |       |  RALT |
             bindings = <
 &kp GRAVE  &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3                   &trans    &trans    &trans    &trans    &trans    &kp DELETE
 &kp F1     &kp F2       &kp F3       &kp F4       &kp F5       &kp F6                       &trans    &trans    &trans    &trans    &trans    &trans
 &kp F7     &kp F8       &kp F9       &kp F10      &kp F11      &kp F12                      &trans    &trans    &trans    &trans    &trans    &trans
-&kp LCTRL  &kp LSHFT    &trans       &trans       &trans       &trans    &trans   &trans    &trans    &trans    &trans    &trans    &trans    &kp RSHFT
+&kp LCTRL  &kp LSHFT    &kp CAPS     &trans       &trans       &trans    &trans   &trans    &trans    &trans    &trans    &trans    &trans    &kp RSHFT
                                      &kp LALT     &trans       &trans    &trans   &trans    &trans    &trans    &kp RALT
             >;
 
@@ -51,6 +71,7 @@
         };
 
         raise_layer {
+        display-name = "Raise";
 // --------------------------------------------------------------------------------------------------------------------
 // |   `   |  MUTE | VolDn | VolUp | Prev  | Next  |                  | Play  | Bri+  | Bri-  |   -   |   +   | DELETE|
 // |       |       |       |       |       |       |                  |       |       |       |   [   |   ]   |       |
@@ -65,7 +86,7 @@
                         &kp LALT     &trans       &trans       &trans    &trans   &trans    &trans    &trans       &kp RALT
             >;
 
-            sensor-bindings = <&msc SCRL_LEFT SCRL_RIGHT>;
+            sensor-bindings = <&scrolling_lr>;
         };
     };
 };
