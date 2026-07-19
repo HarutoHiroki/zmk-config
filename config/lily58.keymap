@@ -20,12 +20,12 @@
         scrolling: scrolling {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
-            bindings = <&msc SCRL_UP>, <&msc SCRL_DN>
+            bindings = <&msc SCRL_UP>, <&msc SCRL_DN>;
         }
         scrolling_lr: scrolling_lr {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
-            bindings = <&msc SCRL_LEFT>, <&msc SCRL_RIGHT>
+            bindings = <&msc SCRL_LEFT>, <&msc SCRL_RIGHT>;
         }
     };
 
