@@ -10,6 +10,14 @@
 #include <dt-bindings/zmk/ext_power.h>
 #include <dt-bindings/zmk/pointing.h>
 
+&left_encoder {
+    steps = <48>;
+};
+
+&sensors {
+    triggers-per-rotation = <24>;
+};
+
 &msc {
     trigger-period-ms = <8>;
 };
