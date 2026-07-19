@@ -10,10 +10,8 @@
 #include <dt-bindings/zmk/ext_power.h>
 #include <dt-bindings/zmk/pointing.h>
 
-// &msc only emits scroll from a timer, never on press. Default tick is 16ms,
-// so a 5ms tap ends before the first tick ever fires. Tick every 1ms instead.
 &msc {
-    trigger-period-ms = <1>;
+    trigger-period-ms = <8>;
 };
 
 / {
@@ -45,7 +43,7 @@
                         &kp LALT &kp LGUI &mo 1  &trans     &kp SPACE &mo 2  &kp RGUI &kp RALT
             >;
 
-            sensor-bindings = <&mouse_emu MOVE_Y(250) MOVE_Y(-250)>;
+            sensor-bindings = <&mouse_emu MOVE_Y(125) MOVE_Y(-125)>;
         };
 
         lower_layer {
@@ -83,7 +81,7 @@
                                      &kp LALT     &trans       &trans    &trans   &trans    &trans    &trans       &kp RALT
             >;
 
-            sensor-bindings = <&mouse_emu MOVE_X(-250) MOVE_X(250)>;
+            sensor-bindings = <&mouse_emu MOVE_X(-125) MOVE_X(125)>;
         };
     };
 };
