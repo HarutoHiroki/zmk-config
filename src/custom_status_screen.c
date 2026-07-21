@@ -3,7 +3,7 @@
  *
  * Both halves: battery (top-right).
  * Central (left): output status (top-left) + layer (bottom-left) + bongo cat (bottom-right).
- * Peripheral (right): split-link status (top-left) + WPM (bottom-left) + label (bottom-right).
+ * Peripheral (right): split-link status (top-left) + label (bottom-right).
  *
  * SPDX-License-Identifier: MIT
  */
@@ -16,7 +16,6 @@
 #include <zmk/display/widgets/battery_status.h>
 #include <zmk/display/widgets/output_status.h>
 #include <zmk/display/widgets/peripheral_status.h>
-#include <zmk/display/widgets/wpm_status.h>
 
 #include "widgets/bongo_cat.h"
 
@@ -40,9 +39,6 @@ static struct zmk_widget_layer_status layer_status_widget;
 /* --- peripheral (right) only --- */
 #if IS_ENABLED(CONFIG_ZMK_WIDGET_PERIPHERAL_STATUS)
 static struct zmk_widget_peripheral_status peripheral_status_widget;
-#endif
-#if IS_ENABLED(CONFIG_ZMK_WIDGET_WPM_STATUS)
-static struct zmk_widget_wpm_status wpm_status_widget;
 #endif
 #endif
 
@@ -82,13 +78,6 @@ lv_obj_t *zmk_display_status_screen(void) {
                                lv_theme_get_font_small(screen), LV_PART_MAIN);
     lv_obj_align(zmk_widget_peripheral_status_obj(&peripheral_status_widget), LV_ALIGN_TOP_LEFT, 0,
                  0);
-#endif
-#if IS_ENABLED(CONFIG_ZMK_WIDGET_WPM_STATUS)
-    // Right half: WPM, bottom-left
-    zmk_widget_wpm_status_init(&wpm_status_widget, screen);
-    lv_obj_set_style_text_font(zmk_widget_wpm_status_obj(&wpm_status_widget),
-                               lv_theme_get_font_small(screen), LV_PART_MAIN);
-    lv_obj_align(zmk_widget_wpm_status_obj(&wpm_status_widget), LV_ALIGN_BOTTOM_LEFT, 0, 0);
 #endif
     // Right half: static nickname/label, bottom-right.
     lv_obj_t *label = lv_label_create(screen);
