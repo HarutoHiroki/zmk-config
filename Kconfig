@@ -1,0 +1,8 @@
+# Custom OLED status screen options.
+
+config OLED_LABEL_TEXT
+    string "Text shown in the corner of the custom OLED status screen"
+    default "HaruKeeb"
+    help
+      Static nickname/label rendered over the bongo cat's empty top-left
+      corner. Keep it short (a handful of characters) so it fits on 128x32.
