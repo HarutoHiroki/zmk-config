@@ -23,6 +23,10 @@
     trigger-period-ms = <8>;
 };
 
+&led_strip {
+    chain-length = <36>; /* 6 underglow + 30 per-key, one daisy chain */
+};
+
 / {
     behaviors {
         mouse_emu: sensor_rotate_msc {
@@ -30,6 +34,15 @@
             #sensor-binding-cells = <2>;
             bindings = <&msc>, <&msc>;
             tap-ms = <12>;
+        };
+    };
+
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+
+        adjust_layer {
+            if-layers = <1 2>;
+            then-layer = <3>;
         };
     };
 
@@ -91,6 +104,23 @@
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &mouse_emu MOVE_X(-125) MOVE_X(125)>;
+        };
+
+        adjust_layer {
+// --------------------------------------------------------------------------------------------------------------------------------
+// | BTCLR  |  BT1    |  BT2    |   BT3   |   BT4   |   BT5   |                  |       |       |       |       |       |       |
+// | EXTPWR | RGB_HUD | RGB_HUI | RGB_SAD | RGB_SAI | RGB_EFF |                  |       |       |       |       |       |       |
+// |        | RGB_BRD | RGB_BRI | RGB_TOG |         |         |                  |       |       |       |       |       |       |
+// |        |         |         |         |         |         |       |  |       |       |       |       |       |       |       |
+//                              |         |         |         |       |  |       |       |       |       | 
+            bindings = <
+&bt BT_CLR         &bt BT_SEL 0    &bt BT_SEL 1     &bt BT_SEL 2     &bt BT_SEL 3     &bt BT_SEL 4                 &trans &trans &trans &trans &trans &trans
+&ext_power EP_TOG  &rgb_ug RGB_HUD &rgb_ug RGB_HUI  &rgb_ug RGB_SAD  &rgb_ug RGB_SAI  &rgb_ug RGB_EFF              &trans &trans &trans &trans &trans &trans
+&trans             &rgb_ug RGB_BRD &rgb_ug RGB_BRI  &rgb_ug RGB_TOG  &trans           &trans                       &trans &trans &trans &trans &trans &trans
+&trans             &trans          &trans           &trans           &trans           &trans    &trans   &trans    &trans &trans &trans &trans &trans &trans
+                                   &trans           &trans           &trans           &trans    &trans   &trans    &trans &trans &trans &trans
+            >;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
     };
 };
